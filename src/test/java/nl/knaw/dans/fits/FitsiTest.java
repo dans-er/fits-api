@@ -43,5 +43,10 @@ public class FitsiTest
 //        }
         assertTrue(infoList.size() > 0);
     }
+    
+//    @Test
+//    public void sysvar() {
+//        System.getProperties().list(System.out);
+//    }
 
 }

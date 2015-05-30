@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.jdom.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
@@ -16,6 +18,8 @@ import edu.harvard.hul.ois.fits.tools.Tool;
 public class Fitsi
 {
     
+    private static final Logger logger = LoggerFactory.getLogger(Fitsi.class);
+    
     // use absolute filenames for maven goals
     public static final String FITS_HOME = "/Users/ecco/git/fits-api/fits-0.8.5";
     
@@ -24,8 +28,10 @@ public class Fitsi
     private static Fits FITS = null;
     
     private Fitsi() throws FitsConfigurationException {
+        String fitsLocation = FITS_HOME;
+        logger.debug("Setting FITS_HOME as " + fitsLocation);
         BasicConfigurator.configure();
-        FITS = new Fits(FITS_HOME);        
+        FITS = new Fits(fitsLocation);        
     }
     
     public static Fitsi instance() throws FitsConfigurationException {
