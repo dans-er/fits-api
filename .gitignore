@@ -17,5 +17,3 @@
 hs_err_pid*
 /target/
 
-# the fits app must be downloaded from http://projects.iq.harvard.edu/fits/downloads  
-fits-0.8.5/
