@@ -1,5 +1,5 @@
 # fits-api
-fits wrapped as a webservice.
+fits wrapped.
 
 FITS (File Information Tool Set) is developed at Harvard. 
 See [http://projects.iq.harvard.edu/fits](http://projects.iq.harvard.edu/fits)
