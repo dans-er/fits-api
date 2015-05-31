@@ -10,21 +10,21 @@ import org.jdom.Document;
 import org.jdom.Namespace;
 import org.junit.Test;
 
-public class FitsiTest
+public class FitsInstanceTest
 {
     
     
     
     @Test
     public void testInstance() throws Exception {
-        Fitsi fits1 = Fitsi.instance();
-        Fitsi fits2 = Fitsi.instance();
+        FitsInstance fits1 = FitsInstance.instance();
+        FitsInstance fits2 = FitsInstance.instance();
         assertEquals(fits1, fits2);
     }
     
     @Test
     public void testGetDocument() throws Exception {
-        Fitsi fits = Fitsi.instance();
+        FitsInstance fits = FitsInstance.instance();
         Document doc = fits.getDocument(new File("/Users/ecco/git/fits-api/src/test/resources/test-files/DSC00323.jpg"));
         //System.err.println(new XMLOutputter(Format.getPrettyFormat()).outputString(doc)); 
         Namespace ns = Namespace.getNamespace("http://hul.harvard.edu/ois/xml/ns/fits/fits_output");
@@ -36,7 +36,7 @@ public class FitsiTest
     
     @Test
     public void testGetToolInfo() throws Exception {
-        Fitsi fits = Fitsi.instance();
+        FitsInstance fits = FitsInstance.instance();
         List<String> infoList = fits.getToolInfo();
 //        for (String info : infoList) {
 //            System.err.println(info);
@@ -44,9 +44,9 @@ public class FitsiTest
         assertTrue(infoList.size() > 0);
     }
     
-//    @Test
-//    public void sysvar() {
-//        System.getProperties().list(System.out);
-//    }
+    @Test
+    public void testGetDocumentFromDirectory() throws Exception {
+        FitsInstance fits = FitsInstance.instance();
+    }
 
 }

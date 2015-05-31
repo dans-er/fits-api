@@ -15,28 +15,28 @@ import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.tools.Tool;
 
-public class Fitsi
+public class FitsInstance
 {
     
-    private static final Logger logger = LoggerFactory.getLogger(Fitsi.class);
+    private static final Logger logger = LoggerFactory.getLogger(FitsInstance.class);
     
     // use absolute filenames for maven goals
     public static final String FITS_HOME = "/Users/ecco/git/fits-api/fits-0.8.5";
     
-    private static Fitsi INSTANCE = null;
+    private static FitsInstance INSTANCE = null;
     
     private static Fits FITS = null;
     
-    private Fitsi() throws FitsConfigurationException {
+    private FitsInstance() throws FitsConfigurationException {
         String fitsLocation = FITS_HOME;
         logger.debug("Setting FITS_HOME as " + fitsLocation);
         BasicConfigurator.configure();
         FITS = new Fits(fitsLocation);        
     }
     
-    public static Fitsi instance() throws FitsConfigurationException {
+    public static FitsInstance instance() throws FitsConfigurationException {
         if (INSTANCE == null) {
-            INSTANCE = new Fitsi();
+            INSTANCE = new FitsInstance();
         }
         return INSTANCE;
     }
