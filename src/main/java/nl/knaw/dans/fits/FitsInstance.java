@@ -41,14 +41,12 @@ public class FitsInstance
         return INSTANCE;
     }
     
-    public Document getDocument(File file) throws FitsException {
-        return getDocument(file, false);
+    public FitsOutput process(File file) throws FitsException {
+        return FITS.examine(file);
     }
     
-    public Document getDocument(File file, boolean enableStatistics) throws FitsException {
-        Fits.enableStatistics = enableStatistics;
-        FitsOutput fout = FITS.examine(file);
-        return fout.getFitsXml();
+    public Document extract(File file) throws FitsException {
+        return process(file).getFitsXml();
     }
     
     public List<String> getToolInfo() throws Exception {
@@ -59,5 +57,11 @@ public class FitsInstance
         return infoList;
     }
     
-
+    public boolean isStatisticsEnabled() {
+        return Fits.enableStatistics;
+    }
+    
+    public void setStatisticsEnabled(boolean enabled) {
+        Fits.enableStatistics = enabled;
+    }
 }

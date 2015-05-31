@@ -25,7 +25,7 @@ public class FitsInstanceTest
     @Test
     public void testGetDocument() throws Exception {
         FitsInstance fits = FitsInstance.instance();
-        Document doc = fits.getDocument(new File("/Users/ecco/git/fits-api/src/test/resources/test-files/DSC00323.jpg"));
+        Document doc = fits.extract(new File("/Users/ecco/git/fits-api/src/test/resources/test-files/DSC00323.jpg"));
         //System.err.println(new XMLOutputter(Format.getPrettyFormat()).outputString(doc)); 
         Namespace ns = Namespace.getNamespace("http://hul.harvard.edu/ois/xml/ns/fits/fits_output");
         assertTrue(doc.getRootElement().getChild("identification", ns).getChildren().size() == 1);
@@ -44,9 +44,5 @@ public class FitsInstanceTest
         assertTrue(infoList.size() > 0);
     }
     
-    @Test
-    public void testGetDocumentFromDirectory() throws Exception {
-        FitsInstance fits = FitsInstance.instance();
-    }
 
 }
