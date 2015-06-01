@@ -23,7 +23,11 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<!-- ATTENTION: when building for the first time:
+		     1. comment out dependencies specified below
+		     2. invoke maven from the command line: $ mvn clean install
+		     3. undo 1. before opening project in Eclipse -->
 		<!-- START dependencies added to .m2 by addjars-maven-plugin -->
 		<dependency>
 			<groupId>nl.knaw.dans</groupId>

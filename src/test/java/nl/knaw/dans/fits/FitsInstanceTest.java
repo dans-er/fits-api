@@ -18,14 +18,14 @@ public class FitsInstanceTest
     
     @BeforeClass
     public static void beforeClass() throws Exception {
-        InputStream ins = FitsInstance.class.getClassLoader().getResourceAsStream("fits.properties");
+        InputStream ins = FitsWrap.class.getClassLoader().getResourceAsStream("fits.properties");
         if (ins != null) {
             Properties props = new Properties();
             props.load(ins);
             // somehow ${project.basedir} resolves to another directory when build from the command line
             String base = new File(props.getProperty("project.build.sourceDirectory")).getParentFile().getParentFile().getParent();
             String fitsHome = base + File.separator + props.getProperty("fits.version");
-            FitsInstance.setFitsHome(fitsHome);
+            FitsWrap.setFitsHome(fitsHome);
         } else {
             throw new IllegalStateException("The file 'fits.properties' was not found on the classpath.");
         }   
@@ -35,15 +35,15 @@ public class FitsInstanceTest
     
     @Test
     public void testInstance() throws Exception {
-        FitsInstance fits1 = FitsInstance.instance();
-        FitsInstance fits2 = FitsInstance.instance();
+        FitsWrap fits1 = FitsWrap.instance();
+        FitsWrap fits2 = FitsWrap.instance();
         assertEquals(fits1, fits2);
         
     }
     
     @Test
     public void testGetDocument() throws Exception {
-        FitsInstance fits = FitsInstance.instance();
+        FitsWrap fits = FitsWrap.instance();
         Document doc = fits.extract(new File("/Users/ecco/git/fits-api/src/test/resources/test-files/DSC00323.jpg"));
         //System.err.println(new XMLOutputter(Format.getPrettyFormat()).outputString(doc)); 
         Namespace ns = Namespace.getNamespace("http://hul.harvard.edu/ois/xml/ns/fits/fits_output");
@@ -55,7 +55,7 @@ public class FitsInstanceTest
     
     @Test
     public void testGetToolInfo() throws Exception {
-        FitsInstance fits = FitsInstance.instance();
+        FitsWrap fits = FitsWrap.instance();
         List<String> infoList = fits.getToolInfo();
 //        for (String info : infoList) {
 //            System.err.println(info);
