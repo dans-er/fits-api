@@ -16,6 +16,7 @@ import org.junit.Test;
 public class FitsWrapTest
 {
     
+    
     @BeforeClass
     public static void beforeClass() throws Exception {
         InputStream ins = FitsWrap.class.getClassLoader().getResourceAsStream("fits.properties");
