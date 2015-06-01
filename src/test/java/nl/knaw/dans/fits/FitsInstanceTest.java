@@ -4,14 +4,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 import org.jdom.Document;
 import org.jdom.Namespace;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class FitsInstanceTest
 {
+    
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        InputStream ins = FitsInstance.class.getClassLoader().getResourceAsStream("fits.properties");
+        if (ins != null) {
+            Properties props = new Properties();
+            props.load(ins);
+            // somehow ${project.basedir} resolves to another directory when build from the command line
+            String base = new File(props.getProperty("project.build.sourceDirectory")).getParentFile().getParentFile().getParent();
+            String fitsHome = base + File.separator + props.getProperty("fits.version");
+            FitsInstance.setFitsHome(fitsHome);
+        } else {
+            throw new IllegalStateException("The file 'fits.properties' was not found on the classpath.");
+        }   
+    }
     
     
     
@@ -20,6 +38,7 @@ public class FitsInstanceTest
         FitsInstance fits1 = FitsInstance.instance();
         FitsInstance fits2 = FitsInstance.instance();
         assertEquals(fits1, fits2);
+        
     }
     
     @Test

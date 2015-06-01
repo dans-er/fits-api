@@ -15,23 +15,66 @@ import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.tools.Tool;
 
+/**
+ * A simple wrapper class around an instance of {@link Fits}.
+ * <br/>
+ * Fits looks for resources in the FITS_HOME directory, which is the directory containing the XML and tools directories.
+ * You can specify where the FITS_HOME directory is either by
+ * <ul>
+ * <li>calling {@link FitsInstance#setFitsHome(String)} prior to calling {@link FitsInstance#instance()};</li>
+ * <li>setting a System.Property with the name 'FITS_HOME';</li>
+ * <li>setting an environment property with the name 'FITS_HOME'.</li>
+ * </ul>
+ * The value of the FITS_HOME variable will be determined in the order given above.
+ *
+ */
 public class FitsInstance
 {
     
+    public static final String PROPERTY_KEY_FITS_HOME = "FITS_HOME";
+    
     private static final Logger logger = LoggerFactory.getLogger(FitsInstance.class);
     
-    // use absolute filenames for maven goals
-    public static final String FITS_HOME = "/Users/ecco/git/fits-api/fits-0.8.5";
     
+    private static String FITS_HOME = null;
     private static FitsInstance INSTANCE = null;
     
     private static Fits FITS = null;
     
     private FitsInstance() throws FitsConfigurationException {
-        String fitsLocation = FITS_HOME;
-        logger.debug("Setting FITS_HOME as " + fitsLocation);
+        findHome();
         BasicConfigurator.configure();
-        FITS = new Fits(fitsLocation);        
+        FITS = new Fits(FITS_HOME);        
+    }
+    
+    private void findHome() {
+        if (FITS_HOME != null && !FITS_HOME.equals("")) {
+            logger.info("FITS_HOME was set: {}", FITS_HOME);
+        } else if ((FITS_HOME = System.getProperty(PROPERTY_KEY_FITS_HOME)) != null) {
+            logger.info("FITS_HOME was read from System.properties: {}", FITS_HOME);
+        } else if ((FITS_HOME = System.getenv(PROPERTY_KEY_FITS_HOME)) != null) {
+            logger.info("FITS_HOME was read from environment: {}", FITS_HOME);
+        } else {
+            String msg = PROPERTY_KEY_FITS_HOME + " was not set."
+                + "\nEither specify the System.property " + PROPERTY_KEY_FITS_HOME
+                + "\nor specify the environment variable " + PROPERTY_KEY_FITS_HOME
+                + "\nor call setFitsHome(String) before instantiating this class.";
+            throw new IllegalStateException(msg);
+        }
+        
+    }
+    
+    
+    public static void setFitsHome(String fitsHome) {
+        if (INSTANCE != null) {
+            String msg = FitsInstance.class.getSimpleName() + " already initialized with FITS_HOME " + FITS_HOME;
+            throw new IllegalStateException(msg);
+        }
+        FITS_HOME = fitsHome;
+    }
+    
+    public static String getFitsHome() {
+        return FITS_HOME;
     }
     
     public static FitsInstance instance() throws FitsConfigurationException {
