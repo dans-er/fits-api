@@ -13,7 +13,7 @@ import org.jdom.Namespace;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class FitsInstanceTest
+public class FitsWrapTest
 {
     
     @BeforeClass
