@@ -18,6 +18,11 @@ _com.googlecode.addjars-maven-plugin_. It will add all of
 the jars found recursively at a given location to your local
 .m2 repository.
 
+We tossed out dependencies on some libraries and replaced these
+with libraries of a newer version. Tossed out libraries are in the
+`libs-removed` directory.
+
+
 ## Building the project
 After cloning this project to local disk, follow these steps:
 
@@ -35,35 +40,13 @@ After cloning this project to local disk, follow these steps:
 
 ## Using the project
 After building the project locally (see above) you can declare a dependency on this project
-in your pom.xml. In case you want to specify your own dependencies in stead of the
-ones Fits is using, use the `exclusion` element:
+in your pom.xml. 
 
 		<dependency>
 			<groupId>nl.knaw.dans</groupId>
 			<artifactId>fits-api</artifactId>
 			<version>1.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>nl.knaw.dans</groupId>
-					<artifactId>fits-api-tika-app-1.3.jar</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>nl.knaw.dans</groupId>
-					<artifactId>fits-api-slf4j-api-1.4.2.jar</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>nl.knaw.dans</groupId>
-					<artifactId>fits-api-slf4j-log4j12-1.4.2.jar</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-parsers</artifactId>
-			<version>1.8</version>
-		</dependency>
-
-With the snippet above we use Apache Tika version 1.8, in stead of the version 1.3 that is used by Fits.
-Use `exclusion`s for every library you want to declare independent of the Fits distribution.
+---
 
