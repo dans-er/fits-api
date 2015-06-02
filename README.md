@@ -14,7 +14,7 @@ All of these dependencies are in the FITS download which is
 incorporated in this code base under `fits-{version}`.
 This project integrates these dependencies with the maven
 life cycle by using the plugin
-_com.googlecode.addjars-maven-plugin_. It will add all of
+_com.googlecode.addjars-maven-plugin_. This plugin will add all of
 the jars found recursively at a given location to your local
 .m2 repository.
 
